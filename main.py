@@ -154,6 +154,46 @@ def temp():
     # plt.show()
 
 
+def temp_2():
+    config = parse_config(FILE_CONFIGURATION)
+    data = parse_input(config['Data']['file'])
+
+    matplotlib.use('TkAgg')
+
+    from domain.functions import get_functions_for_expressions, \
+        get_functions_for_solving
+    import matplotlib.pyplot as plt
+    from domain.solving import solve
+    from domain.plotting import __get_trajectory_points
+    from domain.classes.point import Point
+
+    f1, f2 = get_functions_for_expressions(data)
+
+    for dataobj in data.dataset.values:
+        x_values = []
+        y_values = []
+        for t in dataobj.trajectories:
+            point = Point.try_parse(t.point)
+            trajectory_points = __get_trajectory_points(
+                point, f1, f2, data.amount_iterations,
+                data.h_step, **dataobj.parameters)
+            x_values.append((list(map(lambda _p: _p.x, trajectory_points)), t.color))
+            y_values.append((list(map(lambda _p: _p.y, trajectory_points)), t.color))
+
+        h_values = [h * data.h_step for h in range(data.amount_iterations + 1)]
+        plt.title(f'x=x(t) | Params: {dataobj.parameters}')
+        for xx, color in x_values:
+            plt.plot(h_values, xx, color=color)
+        plt.show()
+        plt.clf()
+
+        plt.title(f'y=y(t) | Params: {dataobj.parameters}')
+        for yy, color in y_values:
+            plt.plot(h_values, yy, color=color)
+        plt.show()
+        plt.clf()
+
+
 def main():
     logger = logging.getLogger(__name__)
 
@@ -180,7 +220,8 @@ if __name__ == '__main__':
 
     try:
         # main()
-        temp()
+        # temp()
+        temp_2()
     except KeyboardInterrupt:
         sys.exit(1)
     except Exception as e:

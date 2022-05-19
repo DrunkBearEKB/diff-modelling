@@ -15,24 +15,24 @@ from domain.classes.point import Point
 LOGGER = logging.getLogger('__main__')
 
 
-def plot(configuration: DataConfiguration) -> List[str]:
+def plot(data: DataConfiguration) -> List[str]:
     """
     Строит множество фазовых портретов
 
-    :param configuration: Данные для построения фазовых портретов
-    :type configuration: DataConfiguration
+    :param data: Данные для построения фазовых портретов
+    :type data: DataConfiguration
     :return: Список уникальных идентификаторов построенных фазовых портретов
     :rtype: List[str]
     """
-    f1, f2 = get_functions_for_expressions(configuration)
-    f3, f4 = get_functions_for_solving(configuration)
+    f1, f2 = get_functions_for_expressions(data)
+    f3, f4 = get_functions_for_solving(data)
 
     fig_uuids = []
 
-    for data in configuration.dataset.values:
+    for dataobj in data.dataset.values:
         fig_uuid = __plot_phase_portrait(
-            data, f1, f2, configuration.amount_iterations,
-            configuration.h_step, f3, f4, configuration.plotting
+            dataobj, f1, f2, data.amount_iterations,
+            data.h_step, f3, f4, data.plotting
         )
         fig_uuids.append(fig_uuid)
 
