@@ -1,0 +1,100 @@
+{
+    "py/object": "domain.configuration.DataConfiguration",
+    "expressions": {
+        "py/object": "domain.configuration.ExpressionsConfiguration",
+        "initial": [
+            "(1 - x) * e ** (y / (1 + b * y)) - x / D",
+            "((1 - x) * e ** (y / (1 + b * y)) - y / S) / g"
+        ],
+        "simplified": [
+            "(1 - x) * exp((S / D * x) / (1 + b * S / D * x)) - x / D",
+            "S / D * x"
+        ],
+        "variables": ["x", "y"],
+        "parameters_variables": ["b", "g", "S", "D"]
+    },
+    "amount_iterations": 100000,
+    "h_step": 1e-05,
+    "dataset": {
+        "py/object": "domain.configuration.DataSetConfiguration",
+        "values": [
+            {
+                "py/object": "domain.configuration.DataObjConfiguration",
+                "name": "Name1",
+                "parameters": {"b": 0.05, "g": 0.03, "S": 0.4, "D": 0.04},
+                "trajectories": [
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.01, 0.1)", "color": "blue", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.3, 0.4)", "color": "blue", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.5, 1)", "color": "blue", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.7, 0.7)", "color": "blue", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.95, 6)", "color": "blue", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.5, 5)", "color": "red", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.8, 7.5)", "color": "red", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.8, 10)", "color": "red", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.9, 10)", "color": "red", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(1, 8)", "color": "red", "tend_to_rest": true
+                    }
+                ],
+                "plot_separate_line": true
+            },
+            {
+                "py/object": "domain.configuration.DataObjConfiguration",
+                "name": "Name2",
+                "parameters": {"b": 0.05, "g": 0.03, "S": 0.4, "D": 0.049},
+                "trajectories": [
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(1, 2)", "color": "blue", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(1, 7)", "color": "blue", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.4, 3)", "color": "red", "tend_to_rest": true
+                    },
+                    {
+                        "py/object": "domain.configuration.TrajectoryConfiguration",
+                        "point": "(0.8, 10)", "color": "red", "tend_to_rest": true
+                    }
+                ],
+                "plot_separate_line": true
+            }
+        ]
+    },
+    "plotting": {
+        "py/object": "domain.configuration.PlottingConfiguration",
+        "show_legend": true,
+        "show_grid": true
+    }
+}
