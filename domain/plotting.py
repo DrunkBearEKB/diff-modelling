@@ -89,7 +89,7 @@ def __plot_phase_portrait(
                     break
             if flag_new_point:
                 rest_points.append(point_rest)
-                plt.plot(*point_rest, color='black', marker='.')
+                # plt.plot(*point_rest, color='black', marker='.')
 
         plt.plot(x_values, y_values, color=t.color, label='')
 

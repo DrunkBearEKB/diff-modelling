@@ -66,6 +66,94 @@ def parse_input(file: str) -> DataConfiguration:
         raise ValueError(f'Can not parse input file: "{file}"!')
 
 
+def temp():
+    config = parse_config(FILE_CONFIGURATION)
+    data = parse_input(config['Data']['file'])
+
+    matplotlib.use('TkAgg')
+
+    from domain.functions import get_functions_for_solving
+    import matplotlib.pyplot as plt
+    from domain.solving import solve
+    f1, f2 = get_functions_for_solving(data)
+
+    # =====================================================================
+    parameters = [
+        ({'b': 0.05, 'g': 0.03, 'S': 0.4, 'D': 0.05}, 'brown'),
+        ({'b': 0.05, 'g': 0.03, 'S': 0.4, 'D': 0.06}, 'lime'),
+        ({'b': 0.05, 'g': 0.03, 'S': 0.4, 'D': 0.0643}, 'red'),
+        ({'b': 0.05, 'g': 0.03, 'S': 0.4, 'D': 0.07}, 'blue'),
+        ({'b': 0.05, 'g': 0.03, 'S': 0.4, 'D': 0.0644}, 'orange')
+    ]
+
+    x_values = [x / 1000 for x in range(1001)]
+    for params, color in parameters:
+        f = lambda x: f1(x, 0, **params)
+
+        solves = solve(f, (0, 1), 1000)
+        for s in solves:
+            plt.plot([s], [f(s)], marker='.', color=color)
+
+        y_values = list(map(f, x_values))
+        plt.plot(x_values, y_values, label=f'D = {params["D"]} [{len(solves)}]', color=color)
+
+    plt.title(f'S = {parameters[0][0]["S"]}')
+    plt.grid()
+    plt.legend()
+    plt.show()
+
+    # =====================================================================
+    # parameters = [
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.7, 'D': 0.05}, 'brown'),
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.7, 'D': 0.06}, 'lime'),
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.7, 'D': 0.0643}, 'red'),
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.7, 'D': 0.07}, 'blue')
+    # ]
+    #
+    # x_values = [x / 1000 for x in range(1001)]
+    # for params, color in parameters:
+    #     f = lambda x: f1(x, 0, **params)
+    #
+    #     solves = solve(f, (0, 1), 1000)
+    #     for s in solves:
+    #         plt.plot([s], [f(s)], marker='.', color=color)
+    #
+    #     y_values = list(map(f, x_values))
+    #     plt.plot(x_values, y_values,
+    #              label=f'D = {params["D"]} [{len(solves)}]', color=color)
+    #
+    # plt.title(f'S = {parameters[0][0]["S"]}')
+    # plt.grid()
+    # plt.legend()
+    # plt.show()
+
+    # =====================================================================
+    # parameters = [
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.5, 'D': 0.05}, 'brown'),
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.55, 'D': 0.05}, 'lime'),
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.6, 'D': 0.05}, 'red'),
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.65, 'D': 0.05}, 'blue'),
+    #     ({'b': 0.05, 'g': 0.03, 'S': 0.7, 'D': 0.05}, 'orange')
+    # ]
+    #
+    # x_values = [x / 1000 for x in range(1001)]
+    # for params, color in parameters:
+    #     f = lambda x: f1(x, 0, **params)
+    #
+    #     solves = solve(f, (0, 1), 1000)
+    #     for s in solves:
+    #         plt.plot([s], [f(s)], marker='.', color=color)
+    #
+    #     y_values = list(map(f, x_values))
+    #     plt.plot(x_values, y_values,
+    #              label=f'S = {params["S"]} [{len(solves)}]', color=color)
+    #
+    # plt.title(f'D = {parameters[0][0]["D"]}')
+    # plt.grid()
+    # plt.legend()
+    # plt.show()
+
+
 def main():
     logger = logging.getLogger(__name__)
 
@@ -91,7 +179,8 @@ if __name__ == '__main__':
     configure_logger()
 
     try:
-        main()
+        # main()
+        temp()
     except KeyboardInterrupt:
         sys.exit(1)
     except Exception as e:
